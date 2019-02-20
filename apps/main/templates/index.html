@@ -3,8 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
+    <link rel="stylesheet" href="/static/css/common.css" type="text/css">
 </head>
 <body>
-
+<div>
+    <table border="1" style="text-align: center" cellpadding="0" cellspacing="0" >
+    <tr>
+        <th>ID</th>
+        <th>姓名</th>
+        <th>密码</th>
+        <th>是否冻结</th>
+    </tr>
+    {% for user in users %}
+        <tr>
+        <td>{{ user.t_id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.is_delete }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</div>
 </body>
 </html>
