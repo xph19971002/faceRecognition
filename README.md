@@ -24,6 +24,7 @@
 
 
 2.数据库表命名说明
+
     数据库迁移命令:python manage.py makemigrations [app名称]
     数据库同步命令:python manage.py migrate [app名称]
 
