@@ -24,9 +24,9 @@
 
 
 2.数据库表命名说明
+
     数据库迁移命令:python manage.py makemigrations [app名称]
     数据库同步命令:python manage.py migrate [app名称]
-
 
 --------------------------------------------------------------------------------------------------------
                                              数据类型参照表
@@ -55,11 +55,11 @@
     默认值         default = 0 | True | False
     空值约束       null = True | False
     索引字段       db_index = True
-
+    
                     DateTimeField(auto_now=True | auto_now_add=True)    auto_now每次更新数据库重新赋予时间
     时间约束                                                            auto_now_add 永远为第一次创建的时间
                     DateField
-
+    
     外键约束
 
 ---------------------------------------------------------------------------------------------------------
@@ -86,8 +86,10 @@
     4.3 模板建议一个功能模块一个templates文件夹
 
 5.后台账户
+
     创建超级管理员
-     run manage.py tools:  createsuperuser
+    run manage.py tools:  createsuperuser
+
 
 ---------------------------------------------------------------------------------------------------------
                                             开发问题汇总表
@@ -108,3 +110,4 @@ error: (-215) size.width>0 && size.height>0 in function cv::imshow
 
 
 2.Opencv 中文乱码问题
+
