@@ -33,18 +33,19 @@
 --------------------------------------------------------------------------------------------------------
                                     models                                            mysql/oracle
     
-    自增类型                       AutoField
+    自增类型                       AutoField                                           auto_increment       （一把用于id）
     整数           IntegerField/TinyintField/BigIntegerField                             int/number
     单精度浮点                    FloatField/                                              float
-    高精度浮点                    DecimalField                                            decimal
+    高精度浮点                    DecimalField   必须设置max_digit和decimal_places         decimal         （一般用于金钱）
     
                                                                                           char
-    字符                           CharField
+    字符                           CharField     必须设置max_length
                                                                                           varchar/varchar2
     
     文本域                        TextField                                               text
     日期                          DateField                                               date
     时间                        DateTimeField                                           datetime/timestamp
+    布尔类型                    booleanField                                                bool            （一般用于假删除）
 ---------------------------------------------------------------------------------------------------------
     字段约束参照表
 ---------------------------------------------------------------------------------------------------------
@@ -53,7 +54,7 @@
     最大长度       max_length =
     默认值         default = 0 | True | False
     空值约束       null = True | False
-    索引字段        db_index = True
+    索引字段       db_index = True
 
                     DateTimeField(auto_now=True | auto_now_add=True)    auto_now每次更新数据库重新赋予时间
     时间约束                                                            auto_now_add 永远为第一次创建的时间
