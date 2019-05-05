@@ -115,3 +115,5 @@ dmypy.json
 .idea
 migrations
 opencv-master
+EXT_RES
+static
