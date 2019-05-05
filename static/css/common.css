@@ -1,6 +1,6 @@
 @charset "utf-8";
 body, div, iframe, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4, table, th, td, input,
-button, select, textarea {
+button, select, textarea ,nav{
     margin: 0;
     padding: 0;
     font-style: normal;
@@ -35,5 +35,5 @@ a {
 }
 
 a:hover {
-    color: #F00;
+    color: blue;
 }

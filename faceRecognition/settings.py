@@ -30,12 +30,15 @@ SYS_APPS = [
 
 # 第三方功能模块
 EXT_APPS = [
-
+    'crispy_forms',  # 必须添加
+    'xadmin',  # 必须添加
+    'reversion',  # 非必要添加 修改后台样式用
 ]
 
 # 自定义功能模块
 CUSTOM_APPS = [
-        'apps.main',
+    'apps.main',
+    'apps.result',
 ]
 
 INSTALLED_APPS = SYS_APPS + CUSTOM_APPS + EXT_APPS
@@ -83,11 +86,11 @@ WSGI_APPLICATION = 'faceRecognition.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'frdb',
+        'NAME': 'faceDB',
         'POST': '3306',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '192.168.50.16',
+        'HOST': 'localhost',
     }
 }
 
@@ -136,7 +139,8 @@ STATIC_URL = '/static/'
 # 不同功能模块下静态文件路径配置
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    # os.path.join(BASE_DIR, 'apps/main/static'),
+    os.path.join(BASE_DIR, 'apps/main/static'),
+    os.path.join(BASE_DIR, 'apps/result/static'),
 )
 
 # ----------------------------------------------------------------------
@@ -192,28 +196,31 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #                               邮件配置
 # ----------------------------------------------------------------------
 # 传递消息时使用的redis 的ip 端口 数据库名
-# BROKER_URL = 'redis://127.0.0.1:6379/2'
+BROKER_URL = 'redis://127.0.0.1:6379/2'
 
 # 发送邮件的服务器地址
-# EMAIL_HOST = 'smtp.163.com'
+EMAIL_HOST = 'smtp.163.com'
 
 # 发送邮件端口
-# EMAIL_PORT = 25
+EMAIL_PORT = 25
 
-# 发送邮件默认的名称
-# EMAIL_HOST_USER = ''
+# 用户收到邮件显示的邮箱
+DEFAULT_FROM_EMAIL = 'xph19971002@163.com'
+
+# 邮箱账号
+EMAIL_HOST_USER = 'xph19971002@163.com'
 
 # 授权码
-# EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = 'xipenghao456'
 
 # 是否启用tls安全协议
-# EMAIL_USE_TLS = True
+EMAIL_USE_TLS = True
 
 # 是否启用SSL安全协议
 # EMAIL_USE_SSL = True
 
 # 发送超时时间
-# EMAIL_TIMEOUT =
+# EMAIL_TIMEOUT = 120
 
 
 # ----------------------------------------------------------------------
@@ -236,26 +243,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #         },
 #     }
 # }
-
-
-# ----------------------------------------------------------------------
-#                             支付宝支付配置
-# ----------------------------------------------------------------------
-
-# 支付宝注册应用生成的id
-# APP_ID = ''
-# 测试环境下支付网关
-# PAY_URL_DEV = ''
-# 正式开发环境下支付网关
-# PAY_URL = ''
-# 配置私钥
-# APP_PRIVATE_KEY_STR = open(os.path.join(BASE_DIR, 'app_private_key.pem')).read()
-# 配置公钥
-# APP_PUBLIC_KEY_STR = open(os.path.join(BASE_DIR, 'app_public_key.pem')).read()
-
-
-# 指定自定义用户模型所在的位置
-# AUTH_USER_MODEL = 'main.User'
-
-# 验证登录路径
-# LOGIN_URL = '/account/login/'

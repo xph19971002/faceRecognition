@@ -2,27 +2,280 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>星鉴识图</title>
     <link rel="stylesheet" href="/static/css/common.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style type="text/css">
+
+        {#轮播图样式#}
+        .swiper-container {
+            width: auto;
+            height: 650px;
+            position: relative;
+            z-index: -1;
+        }
+
+        .swiper-slide:first-child {
+            width: 1200px;
+            transition-duration: 0ms;
+            transform: translate3d(0px, 0px, 0px);
+        }
+
+        .banner_image {
+            width: 1350px;
+        }
+
+        {# 文件上传样式#}
+        .file-upload {
+            position: absolute;
+            margin-top: -350px;
+            margin-left: 31%;
+        }
+
+        {# 上传文件框样式 #}
+        .file {
+            position: relative;
+            height: 40px;
+
+            line-height: 40px;
+        }
+
+        .file label {
+            display: inline-block;
+
+        }
+
+        .userdefined-file {
+            position: absolute;
+            top: 0;
+            left: 60px;
+            z-index: 2;
+            width: 500px;
+            height: 40px;
+
+            line-height: 40px;
+            font-size: 0; /*应对子元素为 inline-block 引起的外边距*/
+        }
+
+        .userdefined-file input[type="text"] {
+            display: inline-block;
+            vertical-align: middle;
+            padding-right: 14px;
+            padding-left: 14px;
+            width: 320px;
+            background-color: transparent;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .userdefined-file button {
+            display: inline-block;
+            vertical-align: middle;
+            width: 100px;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            background-color: #2C8DFB;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .file input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 60px;
+            z-index: 3;
+            opacity: 0;
+            width: 320px;
+            height: 40px;
+            line-height: 40px;
+            cursor: pointer;
+        }
+
+        {#导航栏样式#}
+        .nav_bar {
+            position: absolute;
+            margin-top: -650px;
+            width: 1350px;
+        }
+
+        .icon {
+            float: left;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        .admin_login {
+            float: right;
+            margin-top: 10px;
+            margin-right: 10px;
+            text-decoration: none
+        }
+
+        .admin_login > p > a > span{
+            padding-left: 5px;
+            font-size: 20px;
+        }
+
+        {#明星展示区样式#}
+        .image {
+            float: left;
+            padding-left: 20px;
+            margin-top: 20px;
+            width: 330px;
+            height: 420px
+        }
+
+        .bar {
+            width: 100%;
+            height: 3px;
+            background: lightgray;
+        }
+
+        .image-show-title {
+            margin-bottom: 5px;
+            margin-top: 20px
+        }
+
+        .image-show-title > span {
+            font-size: 20px
+        }
+
+        .image-show-content{
+            width: 1350px;
+        }
+    </style>
 </head>
 <body>
 <div>
-    <table border="1" style="text-align: center" cellpadding="0" cellspacing="0" >
-    <tr>
-        <th>ID</th>
-        <th>姓名</th>
-        <th>密码</th>
-        <th>是否冻结</th>
-    </tr>
-    {% for user in users %}
-        <tr>
-        <td>{{ user.t_id }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.password }}</td>
-        <td>{{ user.is_delete }}</td>
-        </tr>
-    {% endfor %}
-</table>
+    {#  轮播图  #}
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {% for banner in banners %}
+                <div class="swiper-slide">
+                    <img src="{{ banner.detail_url }}{{ banner.image }}.jpg" alt="出错了" class="banner_image">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {#  首页导航  #}
+    <div class="nav_bar clear">
+        {#  网站图标  #}
+        <div class="icon">
+            <p>
+                <a href="http://127.0.0.1:8000">
+                    <img src="/static/img/logo.png" alt="出错了">
+                </a>
+            </p>
+        </div>
+        {#  管理员登录  #}
+        <div class="admin_login">
+            <p>
+                <a href="http://127.0.0.1:8000/admin">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <span style="color: white">管理员登录</span>
+                </a>
+            </p>
+        </div>
+    </div>
+
+    {# 文件上传 #}
+    <div class="file-upload">
+        <form action="" class="activityForm">
+            <div class="file">
+                <label for="file"></label>
+                <div class="userdefined-file">
+                    <input type="text" name="userdefinedFile" id="userdefinedFile">　　
+                    <button type="submit">上传</button>
+                </div>
+                <input type="file" name="file" id="file">　　
+            </div>
+        </form>
+    </div>
+
+    {#  图片展示  #}
+    <div class="image-show-content">
+        <div>
+            <div class="image-show-title">
+                <span>男明星</span>
+                <div class="bar"></div>
+            </div>
+            <div class="clear">
+                {% for man_star in man_stars %}
+                    <div>
+                        <a href="#">
+                            <img src="{{ man_star.image.image_location }}{{ man_star.image.image_name }}.jpg" alt=""
+                                 class="image">
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div>
+            <div class="image-show-title">
+                <span>女明星</span>
+                <div class="bar"></div>
+            </div>
+            <div class="clear">
+                {% for woman_star in woman_stars %}
+                    <div>
+                        <a href="#">
+                            <img src="{{ woman_star.image.image_location }}{{ woman_star.image.image_name }}.jpg" alt=""
+                                 class="image">
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.js"></script>
+
+{# 轮播图JS #}
+<script>
+    window.onload = function () {
+        let mySwiper = new Swiper('.swiper-container', {
+            // 方向
+            direction: 'horizontal',
+
+            // 是否循环播放
+            loop: true,
+
+            // 自动播放
+            autoplay: 4000,
+
+            //循环速度
+            speed: 2000,
+
+            //图片懒加载
+            lazyLoading: true,
+
+            // 如果需要分页器
+            {#pagination: '.swiper-pagination',#}
+
+            // 如果需要前进后退按钮
+            {#nextButton: '.swiper-button-next',#}
+            {#prevButton: '.swiper-button-prev',#}
+
+            // 如果需要滚动条
+            {#scrollbar: '.swiper-scrollbar',#}
+        })
+    }
+</script>
+
 </body>
 </html>
