@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load staticfiles %}
 <head>
     <meta charset="UTF-8">
     <title>星鉴识图</title>
     <link rel="stylesheet" href="/static/css/common.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="/static/css/common.css" type="text/css">
     <style type="text/css">
 
         {#轮播图样式#}
@@ -35,72 +36,6 @@
         }
 
         {# 上传文件框样式 #}
-        .file {
-            position: relative;
-            height: 40px;
-
-            line-height: 40px;
-        }
-
-        .file label {
-            display: inline-block;
-
-        }
-
-        .userdefined-file {
-            position: absolute;
-            top: 0;
-            left: 60px;
-            z-index: 2;
-            width: 500px;
-            height: 40px;
-
-            line-height: 40px;
-            font-size: 0; /*应对子元素为 inline-block 引起的外边距*/
-        }
-
-        .userdefined-file input[type="text"] {
-            display: inline-block;
-            vertical-align: middle;
-            padding-right: 14px;
-            padding-left: 14px;
-            width: 320px;
-            background-color: transparent;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            height: 40px;
-            line-height: 40px;
-            font-size: 14px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .userdefined-file button {
-            display: inline-block;
-            vertical-align: middle;
-            width: 100px;
-            text-align: center;
-            height: 40px;
-            line-height: 40px;
-            font-size: 14px;
-            background-color: #2C8DFB;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .file input[type="file"] {
-            position: absolute;
-            top: 0;
-            left: 60px;
-            z-index: 3;
-            opacity: 0;
-            width: 320px;
-            height: 40px;
-            line-height: 40px;
-            cursor: pointer;
-        }
 
         {#导航栏样式#}
         .nav_bar {
@@ -122,7 +57,7 @@
             text-decoration: none
         }
 
-        .admin_login > p > a > span{
+        .admin_login > p > a > span {
             padding-left: 5px;
             font-size: 20px;
         }
@@ -151,8 +86,43 @@
             font-size: 20px
         }
 
-        .image-show-content{
+        .image-show-content {
             width: 1350px;
+        }
+
+        #btn-rec {
+            width: 70px;
+            height: 50px;
+            background-color: #2C8DFB
+        }
+
+        #show-file-name {
+            width: 400px;
+            height: 50px;
+            z-index: 1;
+            margin-left: -400px;
+            background-color: transparent;
+        }
+
+        #up-file {
+            width: 400px;
+            height: 50px;
+            opacity: 0;
+            z-index: 2;
+            background-color: transparent;
+        }
+
+        .a-upload {
+            text-decoration: none;
+        }
+
+        #admin-font {
+            color: white;
+        }
+
+        #admin-a {
+            color: #2C8DFB;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -181,9 +151,9 @@
         {#  管理员登录  #}
         <div class="admin_login">
             <p>
-                <a href="http://127.0.0.1:8000/admin">
+                <a href="http://127.0.0.1:8000/admin" id="admin-a">
                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    <span style="color: white">管理员登录</span>
+                    <span id="admin-font">管理员登录</span>
                 </a>
             </p>
         </div>
@@ -191,16 +161,18 @@
 
     {# 文件上传 #}
     <div class="file-upload">
-        <form action="" class="activityForm">
-            <div class="file">
-                <label for="file"></label>
-                <div class="userdefined-file">
-                    <input type="text" name="userdefinedFile" id="userdefinedFile">　　
-                    <button type="submit">上传</button>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group" style="">
+                    <a href="" class="a-upload">
+                        <input type="file" class="form-control" id="up-file" name="upload-img">
+                    </a>
+                    <input type="text" class="form-control" placeholder="选择图片" id="show-file-name">
                 </div>
-                <input type="file" name="file" id="file">　　
-            </div>
-        </form>
+                <input type="submit" class="btn btn-default" value="识别" id="btn-rec">
+            </form>
+        </div>
     </div>
 
     {#  图片展示  #}
@@ -276,6 +248,13 @@
         })
     }
 </script>
-
+<script type="text/javascript">
+    $(".a-upload").on("change", "input[type='file']", function () {
+        let filePath = $(this).val();
+        let arr = filePath.split('\\');
+        let fileName = arr[arr.length - 1];
+        $("#show-file-name").attr("placeholder", fileName);
+    })
+</script>
 </body>
 </html>
