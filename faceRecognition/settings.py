@@ -13,6 +13,7 @@ SECRET_KEY = '+ta4n+ec49^2xq8%b!ng(eczl2o%37bj@1kg4+)=3=-i+u6yc!'
 # 测试环境
 DEBUG = True
 
+# 允许通过的IP地址
 ALLOWED_HOSTS = []
 
 # ----------------------------------------------------------------------
@@ -39,6 +40,7 @@ EXT_APPS = [
 CUSTOM_APPS = [
     'apps.main',
     'apps.result',
+    "apps.error"
 ]
 
 INSTALLED_APPS = SYS_APPS + CUSTOM_APPS + EXT_APPS
@@ -50,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -86,7 +88,7 @@ WSGI_APPLICATION = 'faceRecognition.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'faceDB',
+        'NAME': 'facedb',
         'POST': '3306',
         'USER': 'root',
         'PASSWORD': 'root',
@@ -141,6 +143,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'apps/main/static'),
     os.path.join(BASE_DIR, 'apps/result/static'),
+    os.path.join(BASE_DIR, 'apps/error/static'),
 )
 
 # ----------------------------------------------------------------------
@@ -151,46 +154,6 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 # 上传文件的根路径， 字符类型
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# ----------------------------------------------------------------------
-#                               缓存的配置
-# ----------------------------------------------------------------------
-
-# pip install django-redis
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django_redis.cache.RedisCache',
-#         # 缓存地址
-#         "LOCATION": "redis://127.0.0.1:6379",
-#         "OPTIONS": {
-#             # 'PASSWORD':123
-#             # 使用线程池管理连接
-#             "CONNECTION_POOL_KWARGS": {"max_connections": 100}
-#         }
-#     },
-#     'session': {
-#         'BACKEND': 'django_redis.cache.RedisCache',
-#         # 缓存地址
-#         "LOCATION": "redis://192.168.50.16:6379/3",
-#         "OPTIONS": {
-#             # 'PASSWORD':123
-#             # 使用线程池管理连接
-#             "CONNECTION_POOL_KWARGS": {"max_connections": 100}
-#         }
-#     },
-# }
-
-
-# ----------------------------------------------------------------------
-#                             session会话维持配置
-# ----------------------------------------------------------------------
-
-# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-# SESSION_CACHE_ALIAS = "session"
-#
-# # session失效的时间 7天
-# SESSION_COOKIE_AGE = 7 * 24 * 60 * 60  # Session的cookie失效日期（2周） 默认1209600秒
-
 
 # ----------------------------------------------------------------------
 #                               邮件配置
@@ -221,25 +184,3 @@ EMAIL_USE_TLS = True
 
 # 发送超时时间
 # EMAIL_TIMEOUT = 120
-
-
-# ----------------------------------------------------------------------
-#                               日志配置
-# ----------------------------------------------------------------------
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'console': {
-#             'level': 'DEBUG',
-#             'class': 'logging.StreamHandler',
-#         },
-#     },
-#     'loggers': {
-#         'django.db.backends': {
-#             'handlers': ['console'],
-#             'propagate': True,
-#             'level': 'DEBUG',
-#         },
-#     }
-# }
