@@ -3,7 +3,7 @@ import os
 import face_recognition
 from django.http import HttpResponse
 from django.shortcuts import render
-from apps.main.models import Banner, StarBasicInfo, UploadImage, StarImage, StarDesc
+from apps.main.models import Banner, StarBasicInfo, UploadImage, StarImage
 
 
 def index(request):
@@ -126,15 +126,15 @@ def index(request):
                 for i in face_dict:
                     results = face_recognition.compare_faces([face_dict[i]], unknown_encoding, tolerance=0.4)
 
-                if str(results[0]) == "True":
-                    star_info = StarBasicInfo.objects.get(star_name=i)
-                    star_desc = star_info.stardesc.desc
-                    image = StarImage.objects.filter(image_name=i).filter(image_type=2)
-                    image_location = image[0].image_location
-                    return render(request, "search_results.html", {"star_info": star_info,
-                                                                   "star_desc": star_desc,
-                                                                   "image_loaction": image_location,
-                                                                   })
+                    if str(results[0]) == "True":
+                        star_info = StarBasicInfo.objects.get(star_name=i)
+                        star_desc = star_info.stardesc.desc
+                        image = StarImage.objects.filter(image_name=i).filter(image_type=2)
+                        image_location = image[0].image_location
+                        return render(request, "search_results.html", {"star_info": star_info,
+                                                                       "star_desc": star_desc,
+                                                                       "image_loaction": image_location,
+                                                                       })
                 return render(request, "404.html")
             except IndexError as e:
                 return HttpResponse("上传图片有误！")
