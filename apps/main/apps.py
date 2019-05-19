@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class MainConfig(AppConfig):
-    name = 'main'
+    name = 'apps.main'
+    verbose_name = "主要功能"
